@@ -1,11 +1,12 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="EyeemMemory.MainPage"
+﻿<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:EyeemMemory" 
+    x:Class="EyeemMemory.MainPage"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -28,9 +29,10 @@
 
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,8,12,-8">
-            <Button Content="Start Game" Height="72" HorizontalAlignment="Left" Margin="60,199,0,0" Name="button1" VerticalAlignment="Top" Width="250" Click="button1_Click" />
-            <Button Content="Setting" Margin="60,297,0,238" HorizontalAlignment="Left" d:LayoutOverrides="Height"/>
-            <Image x:Name="StartImage" HorizontalAlignment="Left" Height="100" Margin="60,42,0,0" VerticalAlignment="Top" Width="100" ImageFailed="StartImage_ImageFailed" />
+            <Button Content="Start Game" Height="72" HorizontalAlignment="Left" Margin="60,308,0,0" x:Name="button1" VerticalAlignment="Top" Width="250" Click="button1_Click" />
+            <Button Content="Setting" Margin="60,420,0,115" HorizontalAlignment="Left" d:LayoutOverrides="Height"/>
+            <Image x:Name="StartImage" HorizontalAlignment="Left" Height="249" Margin="8,8,0,0" VerticalAlignment="Top" Width="296" ImageFailed="StartImage_ImageFailed" />
+        	<local:EyeemMemoryCard x:Name="myCard"  HorizontalAlignment="Right" Margin="0,420,6,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"/>
         </Grid>
     </Grid>
  

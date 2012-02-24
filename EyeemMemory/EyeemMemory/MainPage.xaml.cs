@@ -60,8 +60,11 @@ namespace EyeemMemory
                 root = ser.ReadObject(ms) as EyeemRootObject;
                 ms.Close();
 
-                this.StartImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[0].thumbUrl));  
+                this.StartImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
 
+                //this.myCard.FImage.Source = this.StartImage.Source;
+                this.myCard.FrontImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
+                this.myCard.BackImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[1].photoUrl));
                 
             }
         }
