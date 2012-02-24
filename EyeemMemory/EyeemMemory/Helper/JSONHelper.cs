@@ -10,16 +10,16 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Linq;
 using System.Collections.Generic;
-using RESTTest.Models;
+using EyeemMemory.Models;
 
-namespace RESTTest.Helper
+namespace EyeemMemory.Helper
 {
     public class JSONHelper
     {
 
         public static List<EyeemAlbum> sampleData()
         {
-            List<EyeemAlbum> result = new List<EyeemAlbum>();
+            /*List<EyeemAlbum> result = new List<EyeemAlbum>();
 
             EyeemAlbum myAlbum = new EyeemAlbum();
             myAlbum.name = "Readmill HQ";
@@ -139,12 +139,12 @@ namespace RESTTest.Helper
             myPhoto.photoUrl = "http://www.eyeem.com/thumb/640/480/fac2f945b960c9e673cc8bcd5eee23004cea85f3-1329862688";
             myAlbum.photos.Add(myPhoto);
 
-            result.Add(myAlbum);
+            result.Add(myAlbum);*/
 
             //...
 
 
-            return result;
+            return null;
 
         }
 

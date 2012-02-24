@@ -8,16 +8,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Runtime.Serialization;
 
-namespace RESTTest.Models
+namespace EyeemMemory.Models
 {
+    [DataContract]
     public class EyeemPhoto
     {
+        [DataMember]
         public int id {get; set;}
+        [DataMember]
         public string thumbUrl {get; set;}
+        [DataMember]
         public string photoUrl {get; set;}
+        [DataMember]
         public int width {get; set;}
+        [DataMember]
         public int height {get; set;}
+        [DataMember]
         public string updated {get; set;}
     }
        

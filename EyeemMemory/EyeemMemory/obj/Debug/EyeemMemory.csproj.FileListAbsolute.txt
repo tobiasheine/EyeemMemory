@@ -1,0 +1,13 @@
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\App.g.i.cs
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\MainPage.g.i.cs
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemMemory.g.resources
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\ApplicationIcon.png
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\Background.png
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\EyeemMemory.dll
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\EyeemMemory.pdb
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\AppManifest.xaml
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\EyeemMemory.xap
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemMemory.dll
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemMemory.pdb
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\XapCacheFile.xml
