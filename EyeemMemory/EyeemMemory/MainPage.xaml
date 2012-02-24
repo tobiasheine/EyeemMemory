@@ -22,13 +22,15 @@
 
         <!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MEINE ANWENDUNG" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Seitenname" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="Eyeem Memory" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"><Run Text="S"/><Run Text="tart"/></TextBlock>
         </StackPanel>
 
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Content="Connect Server" Height="72" HorizontalAlignment="Left" Margin="99,117,0,0" Name="button1" VerticalAlignment="Top" Width="250" Click="button1_Click" />
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,8,12,-8">
+            <Button Content="Start Game" Height="72" HorizontalAlignment="Left" Margin="60,199,0,0" Name="button1" VerticalAlignment="Top" Width="250" Click="button1_Click" />
+            <Button Content="Setting" Margin="60,297,0,238" HorizontalAlignment="Left" d:LayoutOverrides="Height"/>
+            <Image x:Name="StartImage" HorizontalAlignment="Left" Height="100" Margin="60,42,0,0" VerticalAlignment="Top" Width="100" ImageFailed="StartImage_ImageFailed" />
         </Grid>
     </Grid>
  

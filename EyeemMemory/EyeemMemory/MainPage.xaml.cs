@@ -15,11 +15,13 @@ using EyeemMemory.Helper;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Windows.Media.Imaging;
 
 namespace EyeemMemory
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        
         // Konstruktor
         public MainPage()
         {
@@ -52,16 +54,23 @@ namespace EyeemMemory
             }
             else
             {
-                //JSONHelper.parseOutput(e.Result);
-                /*      MULTIPLE ALBUM */
-
                 EyeemRootObject root = new EyeemRootObject();
                 MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(root.GetType());
                 root = ser.ReadObject(ms) as EyeemRootObject;
                 ms.Close();
+
+                this.StartImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[0].thumbUrl));  
+
                 
             }
         }
+
+        private void StartImage_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+
+        }
+
+       
     }
 }
