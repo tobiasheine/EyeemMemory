@@ -12,16 +12,34 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using EyeemMemory.Models;
+using EyeemMemory.Control;
+using System.IO.IsolatedStorage;
+using EyeemMemory.Helper;
+using System.IO;
+using System.Text;
+using System.Runtime.Serialization.Json;
+using System.Windows.Media.Imaging;
+using Microsoft.Xna.Framework.Media;
 
 namespace EyeemMemory
 {
     public partial class App : Application
     {
+
+        public EyeemAlbum selectedAlbum { get; set; }
+        public GameManager manager { get; set; }
+        public List<EyeemHighscore> highscoreList { get; set; }
+
+        public EyeemAlbum popularAlbum { get; set; }
+
         /// <summary>
         /// Bietet einen einfachen Zugriff auf den Stammframe der Phone-Anwendung.
         /// </summary>
         /// <returns>Der Stammframe der Phone-Anwendung.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        public bool canPlay { get;  set; }
 
         /// <summary>
         /// Konstruktor für das Application-Objekt.
@@ -57,6 +75,45 @@ namespace EyeemMemory
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            manager = new GameManager();
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+
+            if (settings.Contains("highscore"))
+            {
+                highscoreList = (List<EyeemHighscore>)settings["highscore"];
+            }
+            else
+            {
+                highscoreList = new List<EyeemHighscore>();
+            }
+
+            WebClient client = new WebClient();
+            string strUri = JSONHelper.Search_Url + "Nature" + Secrets.Client_Url;
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
+            client.DownloadStringAsync(new System.Uri(strUri));
+
+            
+
+        }
+
+        void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            EyeemRootObject root = new EyeemRootObject();
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(root.GetType());
+            root = ser.ReadObject(ms) as EyeemRootObject;
+            ms.Close();
+
+            if (root.albums.items.Capacity > 0)
+            {
+                popularAlbum = root.albums.items[0];
+                var currentPage = RootFrame.Content as EyeemPanorama;
+
+                currentPage.default_image_1.Source = new BitmapImage(new Uri(popularAlbum.photos.items[0].thumbUrl));
+                currentPage.default_image_2.Source = new BitmapImage(new Uri(popularAlbum.photos.items[1].thumbUrl));
+                currentPage.default_image_3.Source = new BitmapImage(new Uri(popularAlbum.photos.items[2].thumbUrl));
+            }
+            
         }
 
         // Code, der beim Starten der Anwendung ausgeführt werden soll (z. B. über "Start")

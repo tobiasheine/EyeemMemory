@@ -13,7 +13,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-
+    
     <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -29,10 +29,29 @@
 
         <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,8,12,-8">
-            <Button Content="Start Game" Height="72" HorizontalAlignment="Left" Margin="60,308,0,0" x:Name="button1" VerticalAlignment="Top" Width="250" Click="button1_Click" />
-            <Button Content="Setting" Margin="60,420,0,115" HorizontalAlignment="Left" d:LayoutOverrides="Height"/>
-            <Image x:Name="StartImage" HorizontalAlignment="Left" Height="249" Margin="8,8,0,0" VerticalAlignment="Top" Width="296" ImageFailed="StartImage_ImageFailed" />
-        	<local:EyeemMemoryCard x:Name="myCard"  HorizontalAlignment="Right" Margin="0,420,6,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"/>
+            <Button Content="Search" Height="72" HorizontalAlignment="Left" Margin="148,84,0,0" x:Name="button1" VerticalAlignment="Top" Width="127" Click="button1_Click" />
+            <Image x:Name="StartImage" Stretch="Fill" HorizontalAlignment="Left" Height="120" Margin="8,8,0,0" VerticalAlignment="Top" Width="120" ImageFailed="StartImage_ImageFailed" />
+        	<local:EyeemMemoryCard x:Name="myCard"  HorizontalAlignment="Right" Margin="0,146,328,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"/>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="134,6,0,0" Name="searchBox" Text="Enter Album" VerticalAlignment="Top" Width="260"/>
+            <ListBox Height="333" HorizontalAlignment="Left" Margin="6,266,0,0" Name="AlbumList" VerticalAlignment="Top" Width="444" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Name="AlbumImage"  Source="{Binding thumbnail}" Height="100" Width="100" Stretch="Fill"/>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="200" FontSize="22" Text="Name: "/>
+                                    <TextBlock FontSize="22" Text="{Binding name}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="200" FontSize="22" Text="Total Photos: "/>
+                                    <TextBlock FontSize="22" Text="{Binding totalPhotos}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
  

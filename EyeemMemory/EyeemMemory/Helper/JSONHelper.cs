@@ -11,11 +11,38 @@ using System.Windows.Shapes;
 using System.Linq;
 using System.Collections.Generic;
 using EyeemMemory.Models;
+using System.IO;
+using System.Text;
+using System.Runtime.Serialization.Json;
 
 namespace EyeemMemory.Helper
 {
     public class JSONHelper
     {
+
+        public static string Search_Url = "https://www.eyeem.com/api/v2/albums?minPhotos=10&q=";
+        public static string Popular_Url = "https://www.eyeem.com/api/v2/albums?ids=dynamic:10";
+
+        /*public void getSearchedAlbums(string albumString)
+        {
+            WebClient client = new WebClient();
+            string strUri = JSONHelper.Search_Url+albumString+Secrets.Client_Url;
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(searchTask_DownloadStringCompleted);
+            client.DownloadStringAsync(new System.Uri(strUri));
+
+        }
+
+        static void searchTask_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            EyeemRootObject root = new EyeemRootObject();
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(root.GetType());
+            root = ser.ReadObject(ms) as EyeemRootObject;
+            ms.Close();
+
+            //ToDo: send Data to page
+
+        }*/
 
         public static List<EyeemAlbum> sampleData()
         {

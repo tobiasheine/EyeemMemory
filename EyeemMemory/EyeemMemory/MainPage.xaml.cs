@@ -30,18 +30,21 @@ namespace EyeemMemory
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            WebClient client = new WebClient();
-
-            /*string strUri = "https://www.eyeem.com/api/v2/albums/1234?client_id=9iNUTAc4FCsRj5Co6vJgzVySHxuJtL3Y";                                        SINGLE_ALBUM*/
-            //string strUri = "https://www.eyeem.com/api/v2/topics?autoComplete=berl&offset=0&limit=20&client_id=9iNUTAc4FCsRj5Co6vJgzVySHxuJtL3Y";  MULTIPLE TOPICSTOPICS
-           string strUri = "https://www.eyeem.com/api/v2/albums?ids=35,123,3352,3563&client_id=9iNUTAc4FCsRj5Co6vJgzVySHxuJtL3Y";                       /* MULTIPLE_ALBUMS I NEEED THIS ONE :( */
-
-            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(webClient_DownloadStringCompleted);
-            client.DownloadStringAsync(new System.Uri(strUri));
+            if (this.searchBox.Text.Length > 0)
+            {
+                WebClient client = new WebClient();
+                string strUri = JSONHelper.Search_Url + this.searchBox.Text + Secrets.Client_Url;
+                client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(searchTask_DownloadStringCompleted);
+                client.DownloadStringAsync(new System.Uri(strUri));
+            }
+            else
+            {
+                MessageBox.Show("Enter Album Name First!");
+            }
         }
 
         // Event handler which runs after the feed is fully downloaded.
-        private void webClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        private void searchTask_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -60,15 +63,26 @@ namespace EyeemMemory
                 root = ser.ReadObject(ms) as EyeemRootObject;
                 ms.Close();
 
-                this.StartImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
+                if (root.albums.items.Capacity > 0)
+                {
+                    this.StartImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
 
-                //this.myCard.FImage.Source = this.StartImage.Source;
-                this.myCard.FrontImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
-                this.myCard.BackImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[1].photoUrl));
+                    //this.myCard.FImage.Source = this.StartImage.Source;
+                    this.myCard.FrontImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[2].photoUrl));
+                    this.myCard.BackImage.Source = new BitmapImage(new Uri(root.albums.items[0].photos.items[1].photoUrl));
+
+                    this.AlbumList.ItemsSource = root.albums.items;
+                }
+                else
+                {
+                    MessageBox.Show("No Albums found");
+                }
+                
+                
                 
             }
         }
-
+        
         private void StartImage_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
 

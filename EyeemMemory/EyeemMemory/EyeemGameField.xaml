@@ -1,0 +1,67 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="EyeemMemory.EyeemGameField"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:EyeemMemory">
+
+    <!--LayoutRoot ist das Stammraster, in dem alle anderen Seiteninhalte platziert werden-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel enthält den Namen der Anwendung und den Seitentitel-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Find Matching Pairs" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="EM Memory" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - zusätzliche Inhalte hier platzieren-->
+        <Grid x:Name="GameField" Grid.Row="1" Margin="25,69,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="105" />
+                <ColumnDefinition Width="105" />
+                <ColumnDefinition Width="105" />
+                <ColumnDefinition Width="105" />
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="105" />
+                <RowDefinition Height="105" />
+                <RowDefinition Height="105" />
+                <RowDefinition Height="105" />
+                <RowDefinition Height="105" />
+                <RowDefinition Height="13*" />
+            </Grid.RowDefinitions>
+        </Grid>
+        <TextBlock Height="30" Margin="24,12,0,0" Name="textBlock1" Text="Moves" VerticalAlignment="Top" HorizontalAlignment="Left" Width="59" Grid.Row="1" />
+        <TextBlock Height="30" HorizontalAlignment="Left" Margin="104,12,0,0" Name="Moves" Text="0" VerticalAlignment="Top" Grid.Row="1" />
+        <TextBlock Height="30" HorizontalAlignment="Left" Margin="343,12,0,0" Name="textBlock2" Text="Time" VerticalAlignment="Top" Width="59" Grid.Row="1" />
+        <TextBlock Name="txtMin" Height="30" HorizontalAlignment="Right" Margin="0,12,49,0" Text="" VerticalAlignment="Top" Width="30" Grid.Row="1" />
+        <TextBlock Name="txtSec" Height="30" HorizontalAlignment="Left" Margin="437,12,0,0"  Text="" VerticalAlignment="Top" Width="30" Grid.Row="1" />
+        <TextBlock Grid.Row="1" Height="30" Margin="428,12,47,0" Name="textBlock3" Text=":" VerticalAlignment="Top" />
+    </Grid>
+ 
+    <!--Beispielcode zur Verwendung von ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Schaltfläche 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Schaltfläche 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Menüelement 1"/>
+                <shell:ApplicationBarMenuItem Text="Menüelement 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>

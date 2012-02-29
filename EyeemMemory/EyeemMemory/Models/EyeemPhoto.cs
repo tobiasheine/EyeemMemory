@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Runtime.Serialization;
+using System.Windows.Media.Imaging;
 
 namespace EyeemMemory.Models
 {
@@ -27,6 +28,8 @@ namespace EyeemMemory.Models
         public int height {get; set;}
         [DataMember]
         public string updated {get; set;}
+
+        public BitmapImage rawImage { get; set; }
     }
        
 }

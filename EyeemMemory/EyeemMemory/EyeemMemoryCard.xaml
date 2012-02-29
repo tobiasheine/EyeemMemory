@@ -7,7 +7,7 @@
 	x:Class="EyeemMemory.EyeemMemoryCard" Height="100" Width="100">
 
 	<Canvas x:Name="LayoutRoot" Background="Transparent" HorizontalAlignment="Left" Width="100">
-        <Image x:Name="FrontImage" Height="100" Width="100"/>
-        <Image x:Name="BackImage"  Height="100" Width="100"/>
-	</Canvas>
+        <Image x:Name="BackImage"  Height="100" Width="100" Stretch="Fill" Canvas.Top="0" />
+        <Image x:Name="FrontImage" Height="100" Width="100" Stretch="Fill"/>
+    </Canvas>
 </UserControl>

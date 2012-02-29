@@ -12,3 +12,8 @@ C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\Eyee
 C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\App.g.i.cs
 C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemMemoryCard.g.i.cs
 C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\MainPage.g.i.cs
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemPanorama.g.i.cs
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\Bin\Debug\Coding4Fun.Phone.Controls.dll
+C:\Users\tobi\Documents\Visual Studio 2010\Projects\EyeemMemory\EyeemMemory\EyeemMemory\obj\Debug\EyeemGameField.g.i.cs

@@ -50,8 +50,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Coding4Fun.Phone.Controls, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Servicemodel" />
     <Reference Include="System.Servicemodel.Web" />
@@ -68,15 +71,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\GameManager.cs" />
+    <Compile Include="EyeemGameField.xaml.cs">
+      <DependentUpon>EyeemGameField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EyeemMemoryCard.xaml.cs">
       <DependentUpon>EyeemMemoryCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EyeemPanorama.xaml.cs">
+      <DependentUpon>EyeemPanorama.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="Helper\Secrets.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EyeemAlbum.cs" />
     <Compile Include="Models\EyeemAlbumContainer.cs" />
+    <Compile Include="Models\EyeemHighscore.cs" />
     <Compile Include="Models\EyeemPhoto.cs" />
     <Compile Include="Models\EyeemPhotoItem.cs" />
     <Compile Include="Models\EyeemRootObject.cs" />
@@ -89,9 +101,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="EyeemGameField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EyeemMemoryCard.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EyeemPanorama.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
@@ -109,8 +129,44 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Coding4Fun.Phone.Controls.dll" />
+    <Resource Include="Images\card_black.png" />
+    <Resource Include="Images\card_grey.png" />
+    <Resource Include="Images\panorama_background.jpg" />
+    <Content Include="sounds\flip\01.wav" />
+    <Content Include="sounds\flip\02.wav" />
+    <Content Include="sounds\flip\03.wav" />
+    <Content Include="sounds\flip\04.wav" />
+    <Content Include="sounds\flip\05.wav" />
+    <Content Include="sounds\flip\06.wav" />
+    <Content Include="sounds\flip\07.wav" />
+    <Content Include="sounds\flip\08.wav" />
+    <Content Include="sounds\flip\09.wav" />
+    <Content Include="sounds\flip\10.wav" />
+    <Content Include="sounds\gamesoundtrack_final.mp3" />
+    <Content Include="sounds\no\01.wav" />
+    <Content Include="sounds\no\02.wav" />
+    <Content Include="sounds\no\03.wav" />
+    <Content Include="sounds\no\04.wav" />
+    <Content Include="sounds\no\05.wav" />
+    <Content Include="sounds\no\06.wav" />
+    <Content Include="sounds\no\07.wav" />
+    <Content Include="sounds\no\08.wav" />
+    <Content Include="sounds\no\09.wav" />
+    <Content Include="sounds\no\10.wav" />
+    <Content Include="sounds\yes\01.wav" />
+    <Content Include="sounds\yes\02.wav" />
+    <Content Include="sounds\yes\03.wav" />
+    <Content Include="sounds\yes\04.wav" />
+    <Content Include="sounds\yes\05.wav" />
+    <Content Include="sounds\yes\06.wav" />
+    <Content Include="sounds\yes\07.wav" />
+    <Content Include="sounds\yes\08.wav" />
+    <Content Include="sounds\yes\09.wav" />
+    <Content Include="sounds\yes\10.wav" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

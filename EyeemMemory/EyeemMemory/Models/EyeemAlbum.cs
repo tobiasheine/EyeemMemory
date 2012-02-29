@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ServiceModel;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Windows.Media.Imaging;
 
 
 
@@ -37,5 +38,14 @@ namespace EyeemMemory.Models
         public int totalContributors {get; set;}
         [DataMember]
         public EyeemPhotoItem photos {get; set;}
+
+
+        public ImageSource thumbnail { 
+            get
+            {
+                return new BitmapImage(new Uri(this.thumbUrl));
+            }
+            set { ; } 
+        }
     }
 }
