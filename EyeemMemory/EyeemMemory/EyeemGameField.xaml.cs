@@ -38,14 +38,11 @@ namespace EyeemMemory
 
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            //There is no PopUp open, use the back button normally
             App app = (App)Application.Current;
-            app.manager.gameTimer.Stop();
-            app.manager.moves = 0;
-            base.OnBackKeyPress(e);
-
+            app.manager.reset();
+            base.OnNavigatedFrom(e);
         }
 
         public EyeemGameField()

@@ -66,8 +66,16 @@ namespace EyeemMemory
 
             App app = (App)Application.Current;
             Highscore_List.ItemsSource = app.highscoreList;
-                     
+         
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            App app = (App)Application.Current;
+            Highscore_List.ItemsSource = app.highscoreList;
+        }
+        
 
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         {

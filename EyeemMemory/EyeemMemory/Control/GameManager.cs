@@ -35,18 +35,17 @@ namespace EyeemMemory.Control
         private DispatcherTimer validationTimer = new DispatcherTimer();
         
         public int moves;
-        private int click = 0;
+        private int click;
         private int winMoves;
 
-        private DateTime startDt;
-        public DispatcherTimer gameTimer = new DispatcherTimer();
+        //private DateTime startDt;
+        private DispatcherTimer gameTimer;
         
-        private int gametimeSeconds = 0;
-        private int gametimeMinutes = 0;
+        private int gametimeSeconds;
+        private int gametimeMinutes;
 
         public void setNextCard(EyeemMemoryCard myCard)
         {
-
             click++;
             if (click % 2 == 0) 
             {
@@ -55,14 +54,11 @@ namespace EyeemMemory.Control
 
             if (moves == 0)
             {
-                gameTimer.Interval = new TimeSpan(0, 0, 0, 1, 0);
-                gameTimer.Tick += new EventHandler(dt_Tick);
-
-                //startDt = DateTime.Now;
-                
                 var currentPage = ((App)Application.Current).RootFrame.Content as EyeemGameField;
 
-                startDt = DateTime.Now;
+                //startDt = DateTime.Now;
+                gameTimer.Interval = new TimeSpan(0, 0, 0, 1, 0);
+                
                 gameTimer.Start();
                 
             }
@@ -75,7 +71,6 @@ namespace EyeemMemory.Control
             }
             else if (secondCard == null)
             {
-                               
                 var currentPage = ((App)Application.Current).RootFrame.Content as EyeemGameField;
                 currentPage.Moves.Text = "" + moves;
 
@@ -84,13 +79,10 @@ namespace EyeemMemory.Control
                 app.canPlay = false;
                 
                 validationTimer.Interval = new TimeSpan(0, 0, 1);
-                validationTimer.Tick += new EventHandler(timer_Tick);
                 validationTimer.Start();
 
             }
         }
-
-         
 
         void dt_Tick(object sender, EventArgs e)
         {
@@ -118,26 +110,30 @@ namespace EyeemMemory.Control
         }
 
         public GameManager() {
-            moves = 0;
-            click = 0;
-            wonCards = new List<EyeemMemoryCard>();
-            winMoves = 0;
-            validationTimer = new DispatcherTimer();
             gameTimer = new DispatcherTimer();
-            gametimeSeconds = 0;
-            gametimeMinutes = 0;
+            gameTimer.Tick += new EventHandler(dt_Tick);
+            wonCards = new List<EyeemMemoryCard>();
+            validationTimer = new DispatcherTimer();
+            validationTimer.Tick += new EventHandler(timer_Tick);
+            this.reset();
         }
 
         public void reset()
         {
             moves = 0;
             click = 0;
-            wonCards = new List<EyeemMemoryCard>();
+            wonCards.Clear();
             winMoves = 0;
-            validationTimer = new DispatcherTimer();
-            gameTimer = new DispatcherTimer();
+            
+            //gameTimer = new DispatcherTimer();
+            gameTimer.Stop();
+            
             gametimeSeconds = 0;
             gametimeMinutes = 0;
+            firstCard = null;
+            secondCard = null;
+            //gameTimer.Interval = null ;
+            
         }
 
         
@@ -182,21 +178,6 @@ namespace EyeemMemory.Control
                     wonCards.Add(secondCard);
                     firstCard.canBeChanged = false;
                     secondCard.canBeChanged = false;
-                    
-                    var photoBox = new MessagePrompt
-                    {
-                        Title = "Great Move!",
-                        Body = new Image { Stretch=Stretch.Uniform, Source = new BitmapImage(new Uri(firstCard.myPhoto.photoUrl)) },
-                        IsAppBarVisible = true
-                    };
-                    gameTimer.Stop();
-
-                    photoBox.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(photoBox_Completed);
-                    photoBox.Show();
-
-
-                    firstCard = null;
-                    secondCard = null;
 
                     if (winMoves == 2)
                     {
@@ -219,7 +200,7 @@ namespace EyeemMemory.Control
                         if (app.highscoreList.Capacity > 10)
                         {
                             app.highscoreList = app.highscoreList.GetRange(0, 9);
-                            
+
                         }
 
                         settings["highscore"] = app.highscoreList;
@@ -235,6 +216,23 @@ namespace EyeemMemory.Control
                         messagePrompt.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(messagePrompt_Completed);
                         messagePrompt.Show();
 
+                    }
+                    else
+                    {
+                        var photoBox = new MessagePrompt
+                        {
+                            Title = "Great Move!",
+                            Body = new Image { Stretch = Stretch.Uniform, Source = new BitmapImage(new Uri(firstCard.myPhoto.photoUrl)) },
+                            IsAppBarVisible = true
+                        };
+                        gameTimer.Stop();
+
+                        photoBox.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(photoBox_Completed);
+                        photoBox.Show();
+
+
+                        firstCard = null;
+                        secondCard = null;
                     }
                 }
                 else
@@ -265,12 +263,7 @@ namespace EyeemMemory.Control
             {
                 App app = (App)Application.Current;
                 var currentPage = app.RootFrame.Content as EyeemGameField;
-                moves = 0;
-                click = 0;
-                gametimeMinutes = 0;
-                gametimeMinutes = 0;
-                wonCards = new List<EyeemMemoryCard>();
-                winMoves = 0;
+                //this.reset();
                 currentPage.goBack();
             }
         }
