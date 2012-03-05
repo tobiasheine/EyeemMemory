@@ -146,7 +146,8 @@ namespace EyeemMemory
         {
             if (e.PopUpResult.Equals(Coding4Fun.Phone.Controls.PopUpResult.Ok))
             {
-               
+                App app = (App)Application.Current;
+                app.manager.reset();
                 NavigationService.Navigate(new Uri("/EyeemGameField.xaml", UriKind.Relative));
             }
         }
@@ -166,6 +167,7 @@ namespace EyeemMemory
             else
             {
                 app.selectedAlbum = app.popularAlbum;
+                app.manager.reset();
                 NavigationService.Navigate(new Uri("/EyeemGameField.xaml", UriKind.Relative));
             }
             

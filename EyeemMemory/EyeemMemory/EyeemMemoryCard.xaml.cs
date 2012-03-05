@@ -21,6 +21,10 @@ namespace EyeemMemory
 
         public bool canBeChanged { get; set; }
 
+        public EyeemMemoryCard()
+        {
+        }
+
         public EyeemMemoryCard(string frontImage, EyeemPhoto photo)
 		{
 			// Für das Initialisieren der Variablen erforderlich

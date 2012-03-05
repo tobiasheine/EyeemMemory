@@ -19,12 +19,12 @@ namespace EyeemMemory
     public partial class EyeemGameField : PhoneApplicationPage
     {
         
-        BitmapImage image = new BitmapImage();
-        static Random generator = new Random();
+        //BitmapImage image = new BitmapImage();
+        private Random generator = new Random();
 
-        public static int[] availablePositions = {0,1,2,3,10,11,12,13,20,21,22,23,30,31,32,33,40,41,42,43};
+        private int[] availablePositions = { 0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23, 30, 31, 32, 33, 40, 41, 42, 43 };
 
-        public static int GetRandomElement()
+        private int GetRandomPosition()
         {
             // If there are no elements in the collection, return the default value of T
             if (availablePositions.Count() == 0)
@@ -42,7 +42,7 @@ namespace EyeemMemory
         {
             //There is no PopUp open, use the back button normally
             App app = (App)Application.Current;
-            app.manager.dt.Stop();
+            app.manager.gameTimer.Stop();
             app.manager.moves = 0;
             base.OnBackKeyPress(e);
 
@@ -103,7 +103,7 @@ namespace EyeemMemory
                 myCard = new EyeemMemoryCard("grey", app.selectedAlbum.photos.items[imageIndex]);
                 this.GameField.Children.Add(myCard);
 
-                int position = GetRandomElement();
+                int position = GetRandomPosition();
 
                 int row = position / 10;
                 int colum = position % 10;

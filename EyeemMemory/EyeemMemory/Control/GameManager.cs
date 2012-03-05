@@ -32,16 +32,17 @@ namespace EyeemMemory.Control
 
         List<EyeemMemoryCard> wonCards = new List<EyeemMemoryCard>();
 
-        private static DispatcherTimer timer = new DispatcherTimer();
+        private DispatcherTimer validationTimer = new DispatcherTimer();
         
-
         public int moves;
         private int click = 0;
         private int winMoves;
 
         private DateTime startDt;
-        public DispatcherTimer dt = new DispatcherTimer();
-        TimeSpan ts = new TimeSpan();
+        public DispatcherTimer gameTimer = new DispatcherTimer();
+        
+        private int gametimeSeconds = 0;
+        private int gametimeMinutes = 0;
 
         public void setNextCard(EyeemMemoryCard myCard)
         {
@@ -54,16 +55,15 @@ namespace EyeemMemory.Control
 
             if (moves == 0)
             {
-                dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-                dt.Tick += new EventHandler(dt_Tick);
+                gameTimer.Interval = new TimeSpan(0, 0, 0, 1, 0);
+                gameTimer.Tick += new EventHandler(dt_Tick);
 
-                startDt = DateTime.Now;
+                //startDt = DateTime.Now;
                 
-
                 var currentPage = ((App)Application.Current).RootFrame.Content as EyeemGameField;
 
                 startDt = DateTime.Now;
-                dt.Start();
+                gameTimer.Start();
                 
             }
 
@@ -82,28 +82,39 @@ namespace EyeemMemory.Control
                 secondCard = myCard;
                 App app = (App)Application.Current;
                 app.canPlay = false;
-                //DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = new TimeSpan(0, 0, 1);
-                timer.Tick += new EventHandler(timer_Tick);
-                timer.Start();
+                
+                validationTimer.Interval = new TimeSpan(0, 0, 1);
+                validationTimer.Tick += new EventHandler(timer_Tick);
+                validationTimer.Start();
 
             }
         }
 
-        
+         
 
         void dt_Tick(object sender, EventArgs e)
         {
             var currentPage = ((App)Application.Current).RootFrame.Content as EyeemGameField;
 
-            ts = DateTime.Now.Subtract(startDt);
-            
-            currentPage.txtMin.Text = ts.Minutes.ToString();
-            currentPage.txtSec.Text = ts.Seconds.ToString();
-            
-            if (currentPage.txtMin.Text.Length == 1) currentPage.txtMin.Text = "0" + currentPage.txtMin.Text;
-            if (currentPage.txtSec.Text.Length == 1) currentPage.txtSec.Text = "0" + currentPage.txtSec.Text;
-            
+            if (currentPage != null)
+            {
+                gametimeSeconds++;
+                if (gametimeSeconds >= 60)
+                {
+                    gametimeSeconds = 0;
+                    gametimeMinutes++;
+                }
+
+                if (gametimeMinutes > 0)
+                {
+                    currentPage.txtMin.Text = "" + gametimeMinutes;
+                }
+
+                currentPage.txtSec.Text = "" + gametimeSeconds;
+
+                if (currentPage.txtMin.Text.Length == 1) currentPage.txtMin.Text = "0" + gametimeMinutes;
+                if (currentPage.txtSec.Text.Length == 1) currentPage.txtSec.Text = "0" + gametimeSeconds;
+            }
         }
 
         public GameManager() {
@@ -111,6 +122,22 @@ namespace EyeemMemory.Control
             click = 0;
             wonCards = new List<EyeemMemoryCard>();
             winMoves = 0;
+            validationTimer = new DispatcherTimer();
+            gameTimer = new DispatcherTimer();
+            gametimeSeconds = 0;
+            gametimeMinutes = 0;
+        }
+
+        public void reset()
+        {
+            moves = 0;
+            click = 0;
+            wonCards = new List<EyeemMemoryCard>();
+            winMoves = 0;
+            validationTimer = new DispatcherTimer();
+            gameTimer = new DispatcherTimer();
+            gametimeSeconds = 0;
+            gametimeMinutes = 0;
         }
 
         
@@ -119,7 +146,7 @@ namespace EyeemMemory.Control
         {
             App app = (App)Application.Current;
             checkCards();
-            timer.Stop();
+            validationTimer.Stop();
             app.canPlay = true;
         }
 
@@ -155,24 +182,25 @@ namespace EyeemMemory.Control
                     wonCards.Add(secondCard);
                     firstCard.canBeChanged = false;
                     secondCard.canBeChanged = false;
-                    //MessageBox.Show("Great!");
-
-
+                    
                     var photoBox = new MessagePrompt
                     {
                         Title = "Great Move!",
                         Body = new Image { Stretch=Stretch.Uniform, Source = new BitmapImage(new Uri(firstCard.myPhoto.photoUrl)) },
                         IsAppBarVisible = true
                     };
+                    gameTimer.Stop();
+
+                    photoBox.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(photoBox_Completed);
                     photoBox.Show();
 
 
                     firstCard = null;
                     secondCard = null;
 
-                    if (winMoves == 10)
+                    if (winMoves == 2)
                     {
-                        dt.Stop();
+                        gameTimer.Stop();
                         //Save albumName + moves in Highscore
                         IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
                         //List<EyeemHighscore> highscoreList;
@@ -226,6 +254,11 @@ namespace EyeemMemory.Control
             
         }
 
+        void photoBox_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            gameTimer.Start();
+        }
+
         void messagePrompt_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
         {
             if (e.PopUpResult.Equals(Coding4Fun.Phone.Controls.PopUpResult.Ok))
@@ -234,6 +267,8 @@ namespace EyeemMemory.Control
                 var currentPage = app.RootFrame.Content as EyeemGameField;
                 moves = 0;
                 click = 0;
+                gametimeMinutes = 0;
+                gametimeMinutes = 0;
                 wonCards = new List<EyeemMemoryCard>();
                 winMoves = 0;
                 currentPage.goBack();
