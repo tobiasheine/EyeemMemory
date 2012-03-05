@@ -38,13 +38,6 @@ namespace EyeemMemory
 
         }
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            App app = (App)Application.Current;
-            app.manager.reset();
-            base.OnNavigatedFrom(e);
-        }
-
         public EyeemGameField()
         {
             InitializeComponent();
@@ -54,8 +47,6 @@ namespace EyeemMemory
 
             txtMin.Text = "00";
             txtSec.Text = "00";
-
-            
         }
 
         public void goBack()

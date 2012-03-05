@@ -22,6 +22,8 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls.Primitives;
+using HowtoUsePopup;
 
 namespace EyeemMemory.Control
 {
@@ -179,28 +181,43 @@ namespace EyeemMemory.Control
                     firstCard.canBeChanged = false;
                     secondCard.canBeChanged = false;
 
-                    if (winMoves == 2)
+                    if (winMoves == 10)
                     {
                         gameTimer.Stop();
-                        //Save albumName + moves in Highscore
+                       
                         IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
-                        //List<EyeemHighscore> highscoreList;
                         App app = (App)Application.Current;
 
                         EyeemHighscore newHighscore = new EyeemHighscore();
                         newHighscore.albumName = app.selectedAlbum.name;
                         newHighscore.moves = moves;
+                        
+                        if (gametimeSeconds >= 10)
+                        {
+                            newHighscore.seconds = "" + gametimeSeconds;
+                        }
+                        else
+                        {
+                            newHighscore.seconds = "0" + gametimeSeconds;
+                        }
 
+                        if (gametimeMinutes >= 10)
+                        {
+                            newHighscore.minutes = "" + gametimeMinutes;
+                        }
+                        else
+                        {
+                            newHighscore.minutes = "0" + gametimeMinutes;
+                        }
+                        
                         app.highscoreList.Add(newHighscore);
-                        //app.highscoreList.Sort((x, y) => (compareMoves(x, y)));
-
+                        
                         List<EyeemHighscore> SortedList = app.highscoreList.OrderBy(o => o.moves).ToList();
                         app.highscoreList = SortedList;
 
                         if (app.highscoreList.Capacity > 10)
                         {
                             app.highscoreList = app.highscoreList.GetRange(0, 9);
-
                         }
 
                         settings["highscore"] = app.highscoreList;
@@ -215,21 +232,30 @@ namespace EyeemMemory.Control
                         };
                         messagePrompt.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(messagePrompt_Completed);
                         messagePrompt.Show();
-
                     }
                     else
                     {
-                        var photoBox = new MessagePrompt
+                        gameTimer.Stop();
+
+                        Popup showPhotoPopup;
+                        showPhotoPopup = new Popup();
+                        showPhotoPopup.Child = new PhotoPopup(firstCard.myPhoto);
+                        showPhotoPopup.IsOpen = true;
+                        showPhotoPopup.VerticalOffset = 10;
+                        showPhotoPopup.HorizontalOffset = 0;
+                        showPhotoPopup.Closed += (s1, e1) =>
+                        {
+                            gameTimer.Start();
+                        };
+
+                        /*var photoBox = new MessagePrompt
                         {
                             Title = "Great Move!",
                             Body = new Image { Stretch = Stretch.Uniform, Source = new BitmapImage(new Uri(firstCard.myPhoto.photoUrl)) },
                             IsAppBarVisible = true
                         };
-                        gameTimer.Stop();
-
                         photoBox.Completed += new EventHandler<PopUpEventArgs<string, PopUpResult>>(photoBox_Completed);
-                        photoBox.Show();
-
+                        photoBox.Show();*/
 
                         firstCard = null;
                         secondCard = null;
@@ -246,16 +272,15 @@ namespace EyeemMemory.Control
                     secondCard.FrontImage.Visibility = Visibility.Visible;
                     firstCard = null;
                     secondCard = null;
-
                 }
             }
             
         }
 
-        void photoBox_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        /*void photoBox_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
         {
             gameTimer.Start();
-        }
+        }*/
 
         void messagePrompt_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
         {

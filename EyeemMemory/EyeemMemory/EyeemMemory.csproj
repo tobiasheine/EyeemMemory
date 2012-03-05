@@ -75,6 +75,9 @@
     <Compile Include="EyeemGameField.xaml.cs">
       <DependentUpon>EyeemGameField.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\BuyNowScreen.xaml.cs">
+      <DependentUpon>BuyNowScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EyeemMemoryCard.xaml.cs">
       <DependentUpon>EyeemMemoryCard.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\BuyNowScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EyeemMemoryCard.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +140,7 @@
     <Resource Include="Images\card_black.png" />
     <Resource Include="Images\card_grey.png" />
     <Resource Include="Images\panorama_background.jpg" />
+    <Resource Include="Images\popup_close.png" />
     <Content Include="sounds\flip\01.wav" />
     <Content Include="sounds\flip\02.wav" />
     <Content Include="sounds\flip\03.wav" />

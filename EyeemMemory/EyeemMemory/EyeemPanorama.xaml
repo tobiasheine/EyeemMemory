@@ -59,10 +59,16 @@
                                     <StackPanel Margin="10,10,10,10" Orientation="Vertical">
                                         <TextBlock Width="100" Foreground="DarkGray" FontSize="26" Text="Album"/>
                                         <TextBlock Width="100" Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text="Moves" />
+                                        <TextBlock Width="100" Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text="Time" />
                                     </StackPanel>
                                     <StackPanel Margin="10,10,10,10" Orientation="Vertical">
                                         <TextBlock Foreground="DarkGray" FontSize="26" Text="{Binding albumName}"/>
                                         <TextBlock Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text="{Binding moves}" />
+                                        <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text="{Binding minutes}" />
+                                            <TextBlock Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text=":" Margin="0,0" />
+                                            <TextBlock Style="{StaticResource PhoneTextAccentStyle}" FontSize="22" Text="{Binding seconds}" />
+                                        </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

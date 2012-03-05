@@ -15,6 +15,8 @@ namespace EyeemMemory.Models
     {
         public int moves { get; set; }
         public string albumName { get; set; }
+        public string seconds { get; set; }
+        public string minutes { get; set; }
 
     }
 }

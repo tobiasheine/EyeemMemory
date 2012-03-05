@@ -91,29 +91,40 @@ namespace EyeemMemory
             string strUri = JSONHelper.Search_Url + "Nature" + Secrets.Client_Url;
             client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
             client.DownloadStringAsync(new System.Uri(strUri));
-
-            
-
         }
 
         void client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            EyeemRootObject root = new EyeemRootObject();
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(root.GetType());
-            root = ser.ReadObject(ms) as EyeemRootObject;
-            ms.Close();
 
-            if (root.albums.items.Capacity > 0)
+            if (e.Error != null)
             {
-                popularAlbum = root.albums.items[0];
-                var currentPage = RootFrame.Content as EyeemPanorama;
-
-                currentPage.default_image_1.Source = new BitmapImage(new Uri(popularAlbum.photos.items[0].thumbUrl));
-                currentPage.default_image_2.Source = new BitmapImage(new Uri(popularAlbum.photos.items[1].thumbUrl));
-                currentPage.default_image_3.Source = new BitmapImage(new Uri(popularAlbum.photos.items[2].thumbUrl));
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show(e.Error.Message);
+                });
             }
-            
+            else
+            {
+                EyeemRootObject root = new EyeemRootObject();
+                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(e.Result));
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(root.GetType());
+                root = ser.ReadObject(ms) as EyeemRootObject;
+                ms.Close();
+
+                if (root.albums.items.Capacity > 0)
+                {
+                    popularAlbum = root.albums.items[0];
+                    var currentPage = RootFrame.Content as EyeemPanorama;
+
+                    currentPage.default_image_1.Source = new BitmapImage(new Uri(popularAlbum.photos.items[0].thumbUrl));
+                    currentPage.default_image_2.Source = new BitmapImage(new Uri(popularAlbum.photos.items[1].thumbUrl));
+                    currentPage.default_image_3.Source = new BitmapImage(new Uri(popularAlbum.photos.items[2].thumbUrl));
+                }
+
+            }
+
         }
 
         // Code, der beim Starten der Anwendung ausgeführt werden soll (z. B. über "Start")
@@ -159,8 +170,7 @@ namespace EyeemMemory
                 System.Diagnostics.Debugger.Break();
             }
         }
-
-        #region Initialisierung der Phone-Anwendung
+#region Initialisierung der Phone-Anwendung
 
         // Doppelte Initialisierung vermeiden
         private bool phoneApplicationInitialized = false;
